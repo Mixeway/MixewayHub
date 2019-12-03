@@ -1,0 +1,59 @@
+version: '2.4'
+services:
+  MixerDB:
+    container_name: MixerDB
+    image: mixeway/db:0.9
+    command: postgres -c 'max_connections=200'
+    environment:
+      - POSTGRES_DB=mixer
+      - POSTGRES_USER=mixeruser
+      - POSTGRES_PASSWORD=mixerpassword
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data:rw
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mixeruser -d mixer"]
+      interval: 10s
+      timeout: 5s
+      retries: 1
+  MixerVault:
+    image: mixeway/vault:0.9
+    container_name: MixerVault
+    ports:
+      - 8200:8200
+    environment:
+      - WAIT_HOSTS=MixerDB:5432
+      - VAULT_API_ADDR=http://127.0.0.1:8200
+      - VAULT_ADDR=http://127.0.0.1:8200
+      - VAULT_API=http://127.0.0.1:8200
+    cap_add:
+      - IPC_LOCK
+    command: sh -c 'source /opt/mixer/start && source /opt/mixer/unseal'
+    depends_on:
+      MixerDB:
+        condition: service_healthy
+  MixerBackend:
+    container_name: MixerBackend
+    image: mixeway/backend:0.9
+    env_file:
+      - environments
+    ports:
+      - 8443:8443
+    volumes:
+      - ./pki/:/etc/pki
+    depends_on:
+      MixerDB:
+        condition: service_healthy
+  MixerFrontend:
+    container_name: MixerFrontend
+    image: miexeway/frontend:0.9
+    volumes:
+      - ./pki/:/etc/pki
+    ports:
+      - 443:443
+    depends_on:
+      - MixerBackend
+volumes:
+  pgdata:
+

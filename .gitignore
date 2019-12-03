@@ -1,0 +1,4 @@
+pki/cert.crt
+pki/private.key
+pki/certificate.p12
+pki/ca.pem
