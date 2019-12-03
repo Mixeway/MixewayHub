@@ -15,9 +15,11 @@ echo "Generating environments.."
 echo "KEYALIAS=$CN" >> environments
 echo "TRUSTPASS=$TRUSTPASS" >> environments
 echo "P12PASS=$P12PASS" >> environments
+echo "PROFILE=prod" >> environments
 echo "Verifying created configuration .."
 if [[ -f pki/ca.pem && -f pki/certificate.p12 && -f pki/cert.crt && -f pki/private.key ]]; then
- echo "${grn}Verification successfull\nYou can now run --- docker-compose up ---${end}"
+ echo "${grn}Verification successfull.${end}"
+ echo "${grn}You can now run --- docker-compose up ---${end}"
 else
  echo "${red}Verification unsuccessfull, please make sure that You have permission to create file in this location and OpenSSL package is avaliable${end}"
 fi

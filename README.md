@@ -5,7 +5,8 @@
 > The current version of Mixaway (0.9) is considered as beta. It contains several bugs and vulnerabilities. Every fix
 is put on the board and proceed to make sure version 1.0 will be vulnerability and bug-free. 
 
-<img src="https://github.com">
+<img src="https://mixeway.github.io/img/arch.png">
+
 ### About Mixeway:
 Mixeway is an OpenSource software that is meant to simplify the process of security assurance of projects which are implemented using CICD procedures. **Mixawey is not another vulnerability scanning
 software - it is security orchestration tool**.
@@ -47,6 +48,7 @@ There are 2 requirements for Mixeway to be successfully deployed using prepared 
 TRUSTPASS=changeit
 KEYALIAS=localhost
 P12PASS=changeit
+PROFILE=prod
 ```
 Where TRUSTPASS is password for CACERT file (java keystore containing trusted root certificates), KEYALIAS alias for key stored within PKCS12 file and P12PASS - password for PKCS12 file containing both certificate and private key.
 - Certificates are in the proper place. There should be `pki` directory in the folder where docker-compose.yml is located. It is important that the `pki` directory will contain files:
@@ -68,4 +70,4 @@ docker-compose up
 
 You can either use `setup` script or prepare environment on Your own using the guide above.
 
-Mixeway will be available at https://<ipaddress>
+Mixeway will be available at https://__Your_IP_goes_here

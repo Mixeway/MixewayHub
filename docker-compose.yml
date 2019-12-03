@@ -47,7 +47,7 @@ services:
         condition: service_healthy
   MixerFrontend:
     container_name: MixerFrontend
-    image: miexeway/frontend:0.9
+    image: mixeway/frontend:0.9
     volumes:
       - ./pki/:/etc/pki
     ports:
