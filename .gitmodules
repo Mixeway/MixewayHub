@@ -1,0 +1,6 @@
+[submodule "MixewayBackend"]
+	path = MixewayBackend
+	url = https://github.com/Mixeway/MixewayBackend
+[submodule "MixewayFrontend"]
+	path = MixewayFrontend
+	url = https://github.com/Mixeway/MixewayFrontend
