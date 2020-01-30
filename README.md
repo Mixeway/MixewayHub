@@ -1,4 +1,4 @@
-<a href="https://github.com/Mixeway/MixewayHub/blob/master/releasenote.md"><img src="https://img.shields.io/badge/version-0.9.1-blue" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
+<a href="https://github.com/Mixeway/MixewayHub/blob/master/releasenote:wq:.md"><img src="https://img.shields.io/badge/version-0.9.1-blue" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
 
 # Mixeway Hub <img src="https://mixeway.github.io/img/logo_dashboard.png" height="60px">
 

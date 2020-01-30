@@ -1,4 +1,4 @@
-#v0.9.1 (30.01.2020)
+# v0.9.1 (30.01.2020)
 
 #### New Features
 - Integration with OWASP Dependency track with scope of loading vulnerabilities
