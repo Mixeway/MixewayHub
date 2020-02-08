@@ -1,3 +1,16 @@
+<a name="0.9.2"></a>
+## 0.9.2 (2020-02-08)
+
+#### New Features
+
+* REST API to get scanner types already integrated
+* Checkmarx integration (scope: create project, configure scan, run sca, get vulnerabilities)
+* Extended Fortify SSC integration - possibility to create and configure SSC projects via Mixeway
+
+#### BUG Fixes
+* Fixed bug related with deletion of scanners
+
+
 # v0.9.1 (30.01.2020)
 
 #### New Features
