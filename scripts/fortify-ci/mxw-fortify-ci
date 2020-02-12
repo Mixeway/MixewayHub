@@ -1,0 +1,140 @@
+#!/bin/sh
+print_help () {
+  printf "Example usage:\mxw-fortify-ci --sscurl=https://ssc.com/ssc --versionid=1 --appname=projectName --groupname=groupName --tech=mvn --dtracktoken=123 --mixewayurl=http://mixeway.io --mixewayapikey=123 --mixewayprojectid=1 --ssctoken=123 --dtrackurl=http://dtrack.pl --dtrackproject=123"
+  printf "\nRequired:\n"
+  printf "    --sscurl - is URL of Fortify SSC\n"
+  printf "    --versionid - is ID of Fortify SSC project\n"
+  printf "    --ssctoken - Token to authetnicated to Fortify SSC, it has to be type of CloudCtrlToken\n"
+  printf "    --appname - Subject application name\n"
+  printf "    --groupname - Fortify SCA build name\n"
+  printf "    --mixewayurl - URL for Mixeway API\n"
+  printf "    --mixewayapikey - API key generated on Mixeway to authenticate call\n"
+  printf "    --mixewayprojectid - ID of project on Mixeway\n"
+  printf "Optional:\n"
+  printf "    --tech - Technology, possible options: MVN, NPM, PIP\n"
+  printf "    --dtracktoken - token for Authentication in DTrack\n"
+  printf "    --dtrackurl - URL for dependency track API\n"
+  printf "    --dtrackproject - project ID on Dependency Track\n"
+
+
+}
+if ! type jq > /dev/null; then
+  echo "JQ has to be installed in order to run this script. Please install jq and try again."
+  exit 2
+fi
+if ! type cloudscan > /dev/null; then
+  echo "CloudScan has to be installed in order to run this script. Please install Fortify SCA and try again."
+  exit 2
+fi
+if ! type curl > /dev/null; then
+  echo "Curl has to be installed in order to run this script. Please install curl and try again."
+  exit 2
+fi
+if ! type mvn > /dev/null; then
+  echo "Apache Maven has to be installed in order to run this script. Please install mvn and try again."
+  exit 2
+fi
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --ssctoken=*)
+      ssc_token="${1#*=}"
+      ;;
+    --versionid=*)
+      version_id="${1#*=}"
+      ;;
+    --appname=*)
+      app_name="${1#*=}"
+      ;;
+    --groupname=*)
+      group_name="${1#*=}"
+      ;;
+    --tech=*)
+      tech="${1#*=}"
+      ;;
+    --dtracktoken=*)
+      dtrack_token="${1#*=}"
+      ;;
+    --dtrackurl=*)
+      dtrack_url="${1#*=}"
+      ;;
+    --dtrackproject=*)
+      dtrack_project="${1#*=}"
+      ;;
+    --mixewayapikey=*)
+      mixeway_api_key="${1#*=}"
+      ;;
+    --mixewayurl=*)
+      mixeway_url="${1#*=}"
+      ;;
+    --sscurl=*)
+      ssc_url="${1#*=}"
+      ;;
+    --mixewayprojectid=*)
+      mixeway_project_id="${1#*=}"
+      ;;
+    --help=*)
+      help_=1
+      ;;
+    *)
+      print_help
+      exit 1
+  esac
+  shift
+done
+if [ ! -z "$ssc_token" ] && [ ! -z "$version_id" ] && [ ! -z "$app_name" ] && [ ! -z "$group_name" ] && [ ! -z "$mixeway_api_key" ] && [ ! -z "$mixeway_url" ] && [ ! -z "$ssc_url" ] && [ ! -z "$mixeway_project_id" ]; then
+  echo "Executing CloudScan of SCA for project $app_name"
+  # Execute Fortify SSC Cloud Scan
+  CLOUD_SCAN_REQUEST="cloudscan -sscurl $ssc_url -ssctoken $ssc_token start -upload -versionid $version_id -b $group_name -uptoken $ssc_token -scan"
+  CLOUD_SCAN_RESULT=$($CLOUD_SCAN_REQUEST)
+  # Get JOB token from cloud scan response
+  JOB_ID=$(echo $CLOUD_SCAN_RESULT | sed 's/.*token:\(.*\)/\1/' | xargs)
+  echo "CloudScan request is passed to SSC, received token $JOB_ID"
+  # Send information about the scan to Mixeway
+  curl -k -s --request PUT --url $mixeway_url/api/sast/$mixeway_project_id/running/$group_name/$app_name/$JOB_ID --header 'apikey: '"$mixeway_api_key"'' --output /dev/null
+  echo "Information about CloudScan of $app_name passed to Mixeway"
+  if [ ! -z "$tech" ] && [ ! -z "$dtrack_token" ] && [ ! -z "$dtrack_url" ] && [ ! -z "$dtrack_project" ]; then
+    echo "DTrack info is provided, trying to generate BOM and send it"
+    case $tech in
+      MVN)
+        mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom > /dev/null
+        BOM=$(base64 target/bom.xml |tr -d \\n)
+        POSTDATA="{\"project\":\"$dtrack_project\",\"bom\":\"$BOM\"}"
+        curl -X "PUT" "$dtrack_url/api/v1/bom" \
+          -k -s --output /dev/null \
+          --noproxy "*" \
+          -H 'Content-Type: application/json' \
+          -H 'X-API-Key: '"$dtrack_token"'' \
+          -d @- "$HOST" <<CURL_DATA
+            $POSTDATA
+CURL_DATA
+        echo "Successfully send BOM for MVN configuration"
+      ;;
+      NPM)
+        echo "NPM Dependency track Not yet implemented"
+      ;;
+      PIP)
+        echo "PIP Dependency track Not yet implemented"
+      ;;
+    esac
+  fi
+  echo "Starting to verify of $app_name ..."
+  while true
+  do
+    MIXEWAY_RESPONSE=$(curl --request GET --url $mixeway_url/api/vulns/$mixeway_project_id/$group_name/$app_name   --header 'apikey: '"$mixeway_api_key"'' -k -s)
+    MIXEWAY_STATUS=$(echo $MIXEWAY_RESPONSE | jq -r '.running')
+    MIXEWAY_RESULT=$(echo $MIXEWAY_RESPONSE | jq -r '.result')
+    if [ $MIXEWAY_STATUS = "false" ]; then
+      echo "Fortify SSC Scan for $app_name is done"
+      if [ $MIXEWAY_RESULT = "Ok" ]; then
+        echo "No Critical Vulnerabilities found"
+        exit 0
+      else
+        echo "There are critical vulnerabilities present, exiting with code 1"
+        exit 1
+      fi
+    fi
+    sleep 15
+  done
+else
+  print_help
+fi
