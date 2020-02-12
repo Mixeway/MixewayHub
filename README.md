@@ -21,6 +21,7 @@ With number of plugins for Vulnerability Scanners :
 <img src="https://mixeway.github.io/img/cis.png" height="50px">
 <img src="https://mixeway.github.io/img/jenkins.jpg" height="50px">
 <img src="https://mixeway.github.io/img/jira.jpg" height="50px">
+<img src="https://www.checkmarx.com/wp-content/uploads/2019/10/Checkmarx-logo-2019-horizontal-4.png" height="50px">
 
 With all this available, Mixeway provides functionalities to:
 - Automatic service discovery (IaaS Plugin for assets and network scans for services)
