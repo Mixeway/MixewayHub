@@ -1,4 +1,4 @@
-version: '2.4'
+version: '3.0'
 services:
   MixerDB:
     container_name: MixerDB
@@ -12,14 +12,9 @@ services:
       - 5432:5432
     volumes:
       - pgdata:/var/lib/postgresql/data:rw
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U mixeruser -d mixer"]
-      interval: 10s
-      timeout: 5s
-      retries: 1
   MixerBackend:
     container_name: MixerBackend
-    image: mixeway/backend:0.9
+    image: mixeway/backend:latest
     env_file:
       - environments
     ports:
@@ -27,11 +22,10 @@ services:
     volumes:
       - ./pki/:/etc/pki
     depends_on:
-      MixerDB:
-        condition: service_healthy
+      - MixerDB
   MixerFrontend:
     container_name: MixerFrontend
-    image: mixeway/frontend:0.9
+    image: mixeway/frontend:latest
     volumes:
       - ./pki/:/etc/pki
     ports:
