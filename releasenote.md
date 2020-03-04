@@ -1,3 +1,14 @@
+<a name="1.0.0"></a>
+## 1.0.0 (2020-03-04)
+
+#### New Features
+
+* Hashicorp Vault integration is now optional
+
+#### BUG Fixes
+* Tutorial translation
+* Sonar bugs fixes
+
 <a name="0.9.2"></a>
 ## 0.9.2 (2020-02-08)
 
