@@ -1,0 +1,72 @@
+#!/bin/sh
+print_help () {
+  pritnf "Mixeway Fortify Request script, is contacting with Mixeway REST API in order to request SAST scan and later it verify results found during scanning of source code and OpenSource
+  Libraries\n\n\n"
+  printf "Example usage:\mxw-fortify-ci-req --appname=projectName --groupname=groupName --mixewayurl=http://mixeway.io --mixewayapikey=123 --mixewayprojectid=1"
+  printf "\nRequired:\n"
+  printf "    --appname - Subject application name\n"
+  printf "    --groupname - Fortify SCA build name\n"
+  printf "    --mixewayurl - URL for Mixeway API\n"
+  printf "    --mixewayapikey - API key generated on Mixeway to authenticate call\n"
+  printf "    --mixewayprojectid - ID of project on Mixeway\n"
+
+
+}
+if ! type jq > /dev/null; then
+  echo "JQ has to be installed in order to run this script. Please install jq and try again."
+  exit 2
+fi
+if ! type curl > /dev/null; then
+  echo "Curl has to be installed in order to run this script. Please install curl and try again."
+  exit 2
+fi
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --appname=*)
+      app_name="${1#*=}"
+      ;;
+    --groupname=*)
+      group_name="${1#*=}"
+      ;;
+    --mixewayapikey=*)
+      mixeway_api_key="${1#*=}"
+      ;;
+    --mixewayurl=*)
+      mixeway_url="${1#*=}"
+      ;;
+    --mixewayprojectid=*)
+      mixeway_project_id="${1#*=}"
+      ;;
+    --help=*)
+      help_=1
+      ;;
+    *)
+      print_help
+      exit 1
+  esac
+  shift
+done
+if [ ! -z "$app_name" ] && [ ! -z "$group_name" ] && [ ! -z "$mixeway_api_key" ] && [ ! -z "$mixeway_url" ] && [ ! -z "$mixeway_project_id" ]; then
+  echo "Request for a code and OpenSource scan"
+  curl -k -s --request PUT --url $mixeway_url/api/sast/$mixeway_project_id/create/$group_name/$app_name --header 'apikey: '"$mixeway_api_key"'' --output /dev/null
+  echo "Starting to verify of $app_name ..."
+  while true
+  do
+    MIXEWAY_RESPONSE=$(curl --request GET --url $mixeway_url/api/vulns/$mixeway_project_id/$group_name/$app_name   --header 'apikey: '"$mixeway_api_key"'' -k -s)
+    MIXEWAY_STATUS=$(echo $MIXEWAY_RESPONSE | jq -r '.running')
+    MIXEWAY_RESULT=$(echo $MIXEWAY_RESPONSE | jq -r '.result')
+    if [ $MIXEWAY_STATUS = "false" ]; then
+      echo "Fortify SSC Scan for $app_name is done"
+      if [ $MIXEWAY_RESULT = "Ok" ]; then
+        echo "No Critical Vulnerabilities found"
+        exit 0
+      else
+        echo "There are critical vulnerabilities present, exiting with code 1"
+        exit 1
+      fi
+    fi
+    sleep 15
+  done
+else
+  print_help
+fi

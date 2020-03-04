@@ -1,10 +1,11 @@
-<a href="https://github.com/Mixeway/MixewayHub/blob/master/releasenote:wq:.md"><img src="https://img.shields.io/badge/version-0.9.1-blue" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
+<a href="https://github.com/Mixeway/MixewayHub/blob/master/releasenote:wq:.md"><img src="https://img.shields.io/badge/version-1.0.0-blue" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
+<a href="hub.docker.comd"><img src="https://img.shields.io/docker/pulls/mixeway/backend?logo=Mixeway&style=plastic" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
+[![Build Status](https://travis-ci.org/Mixeway/MixewayBackend.svg?branch=master)](https://travis-ci.org/Mixeway/MixewayBackend)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Mixeway_MixewayBackend&metric=alert_status)](https://sonarcloud.io/dashboard?id=Mixeway_MixewayBackend)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Mixeway_MixewayBackend&metric=security_rating)](https://sonarcloud.io/dashboard?id=Mixeway_MixewayBackend)
 
 # Mixeway Hub <img src="https://mixeway.github.io/img/logo_dashboard.png" height="60px">
 
-### Disclaimer:
-> The current version of Mixaway (0.9) is considered as beta. It contains several bugs and vulnerabilities. Every fix
-is put on the board and proceed to make sure version 1.0 will be vulnerability and bug-free. 
 
 <img src="https://mixeway.github.io/img/arch.png">
 
@@ -17,7 +18,7 @@ With number of plugins for Vulnerability Scanners :
 <img src="https://mixeway.github.io/img/openvas.jpg" height="50px">
 <img src="https://mixeway.github.io/img/acunetix.jpg" height="50px">
 <img src="https://mixeway.github.io/img/fortify.jpg" height="50px">
-<img src="https://mixeway.github.io/img/depcheck.png" height="50px">
+<img src="https://mixeway.github.io/img/deptrack.png" height="50px">
 <img src="https://mixeway.github.io/img/cis.png" height="50px">
 <img src="https://mixeway.github.io/img/jenkins.jpg" height="50px">
 <img src="https://mixeway.github.io/img/jira.jpg" height="50px">
@@ -34,21 +35,39 @@ With all this available, Mixeway provides functionalities to:
 Elements of a system:
 - <a href="https://github.com/Mixeway/MixewayBackend">Backend - Spring Boot REST API</a>
 - <a href="https://github.com/Mixeway/MixewayFrontend">Frontend - Angular 8 application </a>
-- <a href="https://hub.docker.com/repository/docker/mixeway/db">DB - postgres database</a>
-- <a href="https://hub.docker.com/repository/docker/mixeway/vault">Vault - password store</a>
+- <a href="https://hub.docker.com/_/postgres">DB - postgres database</a>
+- <a href="https://www.vaultproject.io/">Vault - password store</a>
 - <a href="https://github.com/Mixeway/MixewayHub">MixewayHub - parent project which contain docker-compose and one click instalation </a>
 
 
 ###### Requirements:
 - Docker-compose
 
+###### Hashicorp Vault integration:
+Mixeway has to be able to reuse given passwords and api keys in order to use them with Vulnerability Scanning interactions.
+
+**Vault integration is optional but it is strongly recommended to be included - otherwise password for vulnerability scanners will
+be stored in plaintext.**
+
 
 ###### Running Mixeway:
 There are 2 requirements for Mixeway to be successfully deployed using prepared docker-compose.
-- environments file to be properly configured:
+- minimal environments file to be properly configured:
 ```
 TRUSTPASS=changeit
 KEYALIAS=localhost
+P12PASS=changeit
+PROFILE=prod
+```
+- Recomended (with vault integration) environments file to be properly configured:
+```
+VAULT_HOST=127.0.0.1
+VAULT_PORT=8200
+VAULT_SCHEME=http
+VAULT_APP_NAME=mixeway
+VAULT_TOKEN=ffffffff-ffff-ffff-ffff-fffffffffff
+KEYALIAS=localhost
+TRUSTPASS=changeit
 P12PASS=changeit
 PROFILE=prod
 ```
