@@ -4,6 +4,8 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Mixeway_MixewayBackend&metric=alert_status)](https://sonarcloud.io/dashboard?id=Mixeway_MixewayBackend)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Mixeway_MixewayBackend&metric=security_rating)](https://sonarcloud.io/dashboard?id=Mixeway_MixewayBackend)
 
+<img src="https://mixeway.io/img/mixewaybadge.png">
+
 # Mixeway Hub <img src="https://mixeway.github.io/img/logo_dashboard.png" height="60px">
 
 
@@ -12,6 +14,8 @@
 ### About Mixeway:
 Mixeway is an OpenSource software that is meant to simplify the process of security assurance of projects which are implemented using CICD procedures. **Mixawey is not another vulnerability scanning
 software - it is security orchestration tool**.
+
+<img src="https://mixeway.io/img/createproject.gif">
 
 With number of plugins for Vulnerability Scanners :
 <img src="https://mixeway.github.io/img/nessus.png" height="50px">
