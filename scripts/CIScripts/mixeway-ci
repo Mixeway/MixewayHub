@@ -77,8 +77,8 @@ send_bom() {
     -k \
     --noproxy "*" \
     -H 'Content-Type: application/json' \
-    -H 'X-API-Key: '$OS_TOKEN \
-    -d @- "$HOST" <<CURL_DATA
+    -H 'X-API-Key: '$OS_APIKEY \
+    -d @- "$OS_URL/api/v1/bom" <<CURL_DATA
       $POSTDATA
 CURL_DATA
 }
@@ -96,7 +96,7 @@ run_opensource() {
     TECH=$(echo "$TECH" | awk '{print tolower($0)}')
     if [ "$SCANNER_TYPE" = "OWASP Dependency Track" ]; then
       if [ "$TECH" = "mvn" ]; then
-        mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom
+        mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom > /dev/null
         BOM=$(base64 target/bom.xml |tr -d \\n)
         send_bom
       elif [ "$TECH" = "js" ]; then
