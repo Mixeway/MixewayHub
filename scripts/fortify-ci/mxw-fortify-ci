@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 print_help () {
   printf "Example usage:\mxw-fortify-ci --sscurl=https://ssc.com/ssc --versionid=1 --appname=projectName --groupname=groupName --tech=mvn --dtracktoken=123 --mixewayurl=http://mixeway.io --mixewayapikey=123 --mixewayprojectid=1 --ssctoken=123 --dtrackurl=http://dtrack.pl --dtrackproject=123"
   printf "\nRequired:\n"
