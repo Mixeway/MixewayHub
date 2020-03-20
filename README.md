@@ -1,4 +1,4 @@
-<a href="https://github.com/Mixeway/MixewayHub/blob/master/releasenote:wq:.md"><img src="https://img.shields.io/badge/version-1.0.0-blue" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
+<a href="https://github.com/Mixeway/MixewayHub/blob/master/releasenote.md"><img src="https://img.shields.io/badge/version-1.1.0-blue" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
 <a href="hub.docker.comd"><img src="https://img.shields.io/docker/pulls/mixeway/backend?logo=Mixeway&style=plastic" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
 [![Build Status](https://travis-ci.org/Mixeway/MixewayBackend.svg?branch=master)](https://travis-ci.org/Mixeway/MixewayBackend)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Mixeway_MixewayBackend&metric=alert_status)](https://sonarcloud.io/dashboard?id=Mixeway_MixewayBackend)
