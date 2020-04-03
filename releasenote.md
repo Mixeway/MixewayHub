@@ -1,3 +1,15 @@
+<a name="1.1.0"></a>
+## 1.1.0 (2020-03-20)
+
+#### New Features
+
+* Bash script ready to integrate with CI tools (scripts/CIScript/mixeway-ci)
+* New view for checking CI Job status and state
+
+#### Bug Fixes
+* Fixed problem with refreshing repository table after creating object
+* Fixed problem with disappearing SAST and OpenSource integration fields once one of them was done
+
 <a name="1.0.0"></a>
 ## 1.0.0 (2020-03-04)
 

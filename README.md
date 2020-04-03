@@ -1,4 +1,4 @@
-<a href="https://github.com/Mixeway/MixewayHub/blob/master/releasenote:wq:.md"><img src="https://img.shields.io/badge/version-1.0.0-blue" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
+<a href="https://github.com/Mixeway/MixewayHub/blob/master/releasenote.md"><img src="https://img.shields.io/badge/version-1.1.0-blue" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
 <a href="hub.docker.comd"><img src="https://img.shields.io/docker/pulls/mixeway/backend?logo=Mixeway&style=plastic" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
 [![Build Status](https://travis-ci.org/Mixeway/MixewayBackend.svg?branch=master)](https://travis-ci.org/Mixeway/MixewayBackend)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Mixeway_MixewayBackend&metric=alert_status)](https://sonarcloud.io/dashboard?id=Mixeway_MixewayBackend)
@@ -97,3 +97,42 @@ docker-compose up
 You can either use `setup` script or prepare environment on Your own using the guide above.
 
 Mixeway will be available at https://__Your_IP_goes_here
+
+### CI integrations
+Mixeway has prepared automated script which is easy to implement in any CICD pipeline which can run bash scripts.
+Requirements:
+1. installed jq, curl
+2. For using OpenSource (At this moment only DependencyTrack available ) scan possibility to run CycloneDX plugin which is dependant on project language - more details here
+https://cyclonedx.org
+
+#### Setup
+```
+cd {project}
+curl https://raw.githubusercontent.com/Mixeway/MixewayHub/master/scripts/CIScripts/mixeway-ci > mixeway-ci
+chmod +x mixeway-ci
+```
+
+#### Usage
+```
+mixeway-ci --appname=projectName \
+    --groupname=groupName \
+    --mixewayurl=http://mixeway.io \
+    --mixewayapikey=123 \
+    --mixewayprojectid=1 \
+    --skipsast \
+    --skipopensource
+
+Required:
+    --appname - Subject application name
+    --groupname - Fortify SCA build name
+    --mixewayurl - URL for Mixeway API
+    --mixewayapikey - API key generated on Mixeway to authenticate call
+    --mixewayprojectid - ID of project on Mixeway
+Optional:
+    --skipsast - setup when You dont want run SAST test
+    --skipopensource - setup when You dont want run OpenSource test
+```
+
+Please note that enabling both `--skipsast` and `--skipopensource` will only verify state of security.
+
+Timeout for script is 5min. If timeout is exceeded script return success.
