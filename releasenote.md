@@ -1,3 +1,16 @@
+<a name="1.2.0"></a>
+## 1.2.0 (2020-04-03)
+
+#### New Features
+
+* Integration with Burp Enterprise Edition
+
+#### BUG Fixes
+* Routing Domain is no longer required while scanner creation
+* Risk of project, codeProject, WebApp and asset is now created in offline. Fixed problem in long execution time. 
+* Code of integration partially refactored
+
+
 <a name="1.1.0"></a>
 ## 1.1.0 (2020-03-20)
 
