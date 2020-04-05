@@ -1,3 +1,14 @@
+
+<a name="1.2.1"></a>
+## 1.2.1 (2020-04-05)
+
+#### New Features
+
+* Frontend updated to Angular 9
+* Frontend updated to Ngx-Admin 5
+* Global statistics for OpenSource Vulnerabilities
+* Possibility to create Password Authentication for Web Application scans (based on username and password passed later to scanner)
+
 <a name="1.2.0"></a>
 ## 1.2.0 (2020-04-03)
 
