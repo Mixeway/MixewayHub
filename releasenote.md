@@ -1,4 +1,17 @@
 
+<a name="1.2.2"></a>
+## 1.2.2 (2020-04-26)
+
+#### New Features
+
+* Possibility to set enable vuln manage option on project level. Setting this option to false will result
+in hiding vulnerabilities and not returning them through Global API (but getting vulnerabilities per
+specific project will still works) see also [#12](/../../issues/12)
+
+#### Bug Fixes
+
+* Fixed problem when search widget did not work as expected see also [#13](/../../issues/13)
+
 <a name="1.2.1"></a>
 ## 1.2.1 (2020-04-05)
 
