@@ -1,3 +1,11 @@
+<a name="1.2.3"></a>
+## 1.2.3 (2020-04-26)
+
+#### Bug Fixes
+
+* Fixed problem with saving users with permissions of Admin and Editor [#16](/../../issues/16)
+* Fixed problem with saving properly CodeGroup with no dependant CodeProject [#15](/../../issues/15)
+
 
 <a name="1.2.2"></a>
 ## 1.2.2 (2020-04-26)
