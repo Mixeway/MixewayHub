@@ -32,6 +32,15 @@ services:
       - 443:443
     depends_on:
       - MixerBackend
+  MixewayVulnAuditor:
+    container_name: MixewayVulnAuditor
+    image: mixeway/vulnauditor:latest
+    env_file:
+      - environments
+    volumes:
+      -./pki/:/pki/
+    ports:
+      - 8445:8445
 volumes:
   pgdata:
 
