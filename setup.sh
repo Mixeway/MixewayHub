@@ -18,8 +18,8 @@ generate_files() {
   echo "TRUSTPASS=$TRUSTPASS" >> environments
   echo "P12PASS=$P12PASS" >> environments
   echo "PROFILE=prod" >> environments
-  echo "CERTIFICATE=/pki/cert.crt"
-  echo "PRIVATEKEY=/pki/private.key"
+  echo "CERTIFICATE=/pki/cert.crt" >> environments
+  echo "PRIVATEKEY=/pki/private.key" >> environments
   echo "Verifying created configuration .."
   if [[ -f pki/ca.pem && -f pki/certificate.p12 && -f pki/cert.crt && -f pki/private.key ]]; then
     echo "${grn}Verification successfull.${end}"
