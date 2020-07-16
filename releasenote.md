@@ -1,3 +1,10 @@
+<a name="1.3.1"></a>
+## 1.3.1 (2020-07-16)
+
+#### New Features
+* Configurable Security Quality Gateway (accessible from settings)
+* AWS EC2 Integration in terms of assets information loading
+
 <a name="1.3.0"></a>
 ## 1.3.0 (2020-05-31)
 
