@@ -38,7 +38,7 @@ services:
     env_file:
       - environments
     volumes:
-      -./pki/:/pki/
+      - ./pki/:/pki/
     ports:
       - 8445:8445
 volumes:
