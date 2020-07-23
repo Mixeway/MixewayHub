@@ -1,3 +1,12 @@
+<a name="1.3.2"></a>
+## 1.3.2 (2020-07-23)
+
+#### Bug Fixes
+* Fixed Bug related with running scan on GVM (scope single, multiple asset)
+* Fixed logging during running scans on GVM
+* Fixed Bug related with problems in using Vuln Auditor
+
+
 <a name="1.3.1"></a>
 ## 1.3.1 (2020-07-16)
 
