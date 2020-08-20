@@ -1,3 +1,13 @@
+<a name="1.3.3"></a>
+## 1.3.3 (2020-08-23)
+
+#### New Features
+* Possibility to edit CodeProject - add repo url, username and password
+* Changed CIScript - check scripts/CIScripts/mixeway-ci
+
+#### Bug Fixes
+* Fixed bug with not proper name during project deletion
+
 <a name="1.3.2"></a>
 ## 1.3.2 (2020-07-23)
 
