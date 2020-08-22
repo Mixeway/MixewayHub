@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/bin/bash
 
 print_help() {
@@ -204,3 +205,5 @@ else
   printf "Not sufficient data or directory is not GIT repository check possible options: \n\n"
   print_help
 fi
+=======
+>>>>>>> d8fadbeb1e9ed341aa06456837def29fe2af6aa7

@@ -6,26 +6,30 @@ mixeway-ci is script which does:
 3. Verify Vulnerabilities for project
     - Return success when no vulnerabilities were reported during scan
     - Return failure when there are Critical vulnerabilities reported
+    
+Supported dependency management plugins:
+* JAVA MVN (java_mvn keyword)
+* JAVA Gradle (not yet ready) (java_gradle keyword)
+* PHP Composer (php_composer keyword)
+* NPM (javascript_npm keyword)
+* PIP (python_pip keyword)
 
 Usage:
 ```
-mixeway-ci --appname=projectName \
-    --groupname=groupName \
-    --mixewayurl=http://mixeway.io \
-    --mixewayapikey=123 \
-    --mixewayprojectid=1 \
+mixeway-ci --branch=master \
+    --tech=java_mvn
     --skipsast \
     --skipopensource
 
 Required:
-    --appname - Subject application name
-    --groupname - Fortify SCA build name
-    --mixewayurl - URL for Mixeway API
-    --mixewayapikey - API key generated on Mixeway to authenticate call
-    --mixewayprojectid - ID of project on Mixeway
+    --branch - branch name
+    --tech - project technology, possible options: java_mvn, java_gradle, php_composer, javascript_npm, python_pip
+
 Optional:
-    --skipsast - setup when You dont want run SAST test
-    --skipopensource - setup when You dont want run OpenSource test
+    --mixewayurl - URL for mixeway, by default environment variable MIXEWAY_URL is taken
+    --mixewayapikey - Master API get which can be generated in admin zone, be default environment variable MIXEWAY_API_KEY is taken
+    --skipsast - to skip SAST scan
+    --skipopensource - to skip OpenSource Vulnerability scan
 ```
 
 Please note that enabling both `--skipsast` and `--skipopensource` will only verify state of security.
