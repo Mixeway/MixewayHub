@@ -1,3 +1,9 @@
+<a name="1.3.4"></a>
+## 1.3.4 (2020-09-02)
+
+#### New Features
+* New Methods for CICD integration with Mixeway Scanner
+
 <a name="1.3.3"></a>
 ## 1.3.3 (2020-08-23)
 
