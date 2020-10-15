@@ -4,9 +4,12 @@
 #### New Features
 * Possibility to edit CodeProject - add repo url, username and password
 * Changed CIScript - check scripts/CIScripts/mixeway-ci
+* New role CICD - possibility to perform mixeway-ci script 
+* Possibility to tenerate API key for basic pourposes and for CICD, possible to generate in user profile (which is also new feature)
 
 #### Bug Fixes
 * Fixed bug with not proper name during project deletion
+* Newly created proxy and routing domain in admin zone are avaliable at scanner creation without page reloading
 
 <a name="1.3.2"></a>
 ## 1.3.2 (2020-07-23)
