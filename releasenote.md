@@ -1,3 +1,7 @@
+## 1.3.5 (2020-11-26)
+#### Bug Fixes
+* Fixing CI Script to fit newest version of MixewayBackend
+
 <a name="1.3.4"></a>
 ## 1.3.4 (2020-09-02)
 
