@@ -24,6 +24,8 @@ mixeway-ci --branch=master \
 Required:
     --branch - branch name
     --tech - project technology, possible options: java_mvn, java_gradle, php_composer, javascript_npm, python_pip
+    --mixewayprojectid - project ID taken from Mixeway GUI
+    --appname - name of the application
 
 Optional:
     --mixewayurl - URL for mixeway, by default environment variable MIXEWAY_URL is taken

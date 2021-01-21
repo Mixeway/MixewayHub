@@ -1,7 +1,26 @@
+## 1.4.0 (2021-01-18)
+#### New Features
+* Adding REST Endpoint which return result of Security Quaility Gateway for particular Code Repository
+* Added Orange Poland Logo
+
+#### Bug Fixes
+* Fixing CI Script to fit newest version of MixewayBackend
+
+## 1.3.5 (2020-11-26)
+#### Bug Fixes
+* Fixing CI Script to fit newest version of MixewayBackend
+
+<a name="1.3.4"></a>
+## 1.3.4 (2020-09-02)
+
+#### New Features
+* New Methods for CICD integration with Mixeway Scanner
+
 <a name="1.3.3"></a>
 ## 1.3.3 (2020-08-23)
 
 #### New Features
+<<<<<<< HEAD
 * Possibility to edit CodeProject - add repo url, username and password
 * Changed CIScript - check scripts/CIScripts/mixeway-ci
 * New role CICD - possibility to perform mixeway-ci script 
@@ -10,6 +29,18 @@
 #### Bug Fixes
 * Fixed bug with not proper name during project deletion
 * Newly created proxy and routing domain in admin zone are avaliable at scanner creation without page reloading
+=======
+* User Profile eidition (change password)
+* Dark mode enabled (change in user profile)
+* Update to Angular 10 and ngx-admin 6.0.0
+* Intorduced role CICD and possibility to generate CICD Api Key for standard users
+* Introduced new methods for interacting with CICD
+
+
+#### Bug Fixes
+* Fixed a bug with project name display during confirmation of deletion
+* Fixed a bug with not reloading proxy and routing domain in admin zone. No refresh is now required.
+>>>>>>> d8e65fe66a8e2d9c406a67388d113f23b24e5206
 
 <a name="1.3.2"></a>
 ## 1.3.2 (2020-07-23)
