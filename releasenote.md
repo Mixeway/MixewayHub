@@ -6,7 +6,7 @@
 * Openscap support for CIS Benchmark
 
 #### Bug Fixes
-* Fixing CI Script to fit newest version of MixewayBackend
+* Fixing CI Script to fit newest version of MixewayBackend 
 
 ## 1.3.5 (2020-11-26)
 #### Bug Fixes
