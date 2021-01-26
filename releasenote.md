@@ -1,3 +1,13 @@
+## 1.4.0 (2021-01-18)
+#### New Features
+* Adding REST Endpoint which return result of Security Quaility Gateway for particular Code Repository
+* Added Orange Poland Logo
+* Knowlege base - possibility to create custom severity for vulnerabilities
+* Openscap support for CIS Benchmark
+
+#### Bug Fixes
+* Fixing CI Script to fit newest version of MixewayBackend 
+
 ## 1.3.5 (2020-11-26)
 #### Bug Fixes
 * Fixing CI Script to fit newest version of MixewayBackend

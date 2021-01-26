@@ -1,4 +1,4 @@
-<a href="https://github.com/Mixeway/MixewayHub/blob/master/releasenote.md"><img src="https://img.shields.io/badge/version-1.3.4-blue" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
+<a href="https://github.com/Mixeway/MixewayHub/blob/master/releasenote.md"><img src="https://img.shields.io/badge/version-1.4.0-blue" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
 <a href="hub.docker.comd"><img src="https://img.shields.io/docker/pulls/mixeway/backend?logo=Mixeway&style=plastic" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
 ![](https://github.com/Mixeway/MixewayBackend/workflows/Deploy%20prod%20version/badge.svg?branch=master)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Mixeway_MixewayBackend&metric=alert_status)](https://sonarcloud.io/dashboard?id=Mixeway_MixewayBackend)
@@ -44,6 +44,9 @@ Elements of a system:
 - <a href="https://www.vaultproject.io/">Vault - password store</a>
 - <a href="https://github.com/Mixeway/MixewayHub">MixewayHub - parent project which contain docker-compose and one click instalation </a>
 
+###### Main Contributor
+- <a href="https://cert.orange.pl">CERT Orange Poland</a> 
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/599px-Orange_logo.svg.png" height="100px">
 
 ###### Requirements:
 - Docker-compose
