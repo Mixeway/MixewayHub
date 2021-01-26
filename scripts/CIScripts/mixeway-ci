@@ -7,8 +7,11 @@ print_help() {
   printf "\nRequired:\n"
   printf "    --branch - branch name\n"
   printf "    --tech - project technology, possible options: java_mvn, java_gradle, php_composer, javascript_npm, python_pip\n"
+<<<<<<< HEAD
   printf "    --mixewayprojectid - project ID taken from Mixeway GUI\n"
   printf "    --appname - Name of the application\n"
+=======
+>>>>>>> d8e65fe66a8e2d9c406a67388d113f23b24e5206
   printf "\nOptional:\n"
   printf "    --mixewayurl - URL for mixeway, by default environment variable MIXEWAY_URL is taken\n"
   printf "    --mixewayapikey - Master API get which can be generated in admin zone, be default environment variable MIXEWAY_API_KEY is taken\n"
@@ -45,6 +48,7 @@ while [ $# -gt 0 ]; do
     --mixewayurl=*)
       mixeway_url="${1#*=}"
       ;;
+<<<<<<< HEAD
     --mixewayprojectid=*)
       mixeway_project_id="${1#*=}"
       ;;
@@ -54,6 +58,8 @@ while [ $# -gt 0 ]; do
     --groupname=*)
       group_name="${1#*=}"
       ;;
+=======
+>>>>>>> d8e65fe66a8e2d9c406a67388d113f23b24e5206
     --skipsast*)
       skip_sast="true"
       ;;
@@ -77,14 +83,25 @@ while [ $# -gt 0 ]; do
 done
 get_commit_id() {
   COMMITID=$(git rev-parse HEAD)
+<<<<<<< HEAD
   echo "CommitID: $COMMITID"
 }
 get_repo_url() {
   REPO_URL=$(cat .git/config | grep "url = " | sed -E 's/\/\/(.*:.*@)/\/\//g' | sed -E 's\url = \\g' |xargs| awk '{print $1}')
+=======
+  group_name=$(git remote get-url origin | xargs basename -s .git)
+  app_name=$(git remote get-url origin | xargs basename -s .git)
+  echo "CommitID: $COMMITID"
+}
+
+get_repo_url() {
+  REPO_URL=$(cat .git/config | grep "url = " | sed -E 's/\/\/(.*:.*@)/\/\//g' | gsed -E 's\url = \\g' |xargs)
+>>>>>>> d8e65fe66a8e2d9c406a67388d113f23b24e5206
   echo "REPO_URL: $REPO_URL"
 }
 #CHANGEIT
 run_sast() {
+<<<<<<< HEAD
   echo "Getting SAST Vulnerability scanner integration info"
   INFO_REQUEST_BODY='{"repoName":"'${REPO_URL##*/}'","scope":"opensource","repoUrl":"'$REPO_URL'","branch":"'$branch'"}'
   OS_RESPONSE=$(curl -k -s --request POST --url $mixeway_url/v2/api/cicd/getscannerinfo --header 'apikey: '"$mixeway_api_key"'' --header 'Content-Type: application/json' --data "$INFO_REQUEST_BODY")
@@ -102,6 +119,23 @@ send_bom() {
     -H 'Content-Type: application/json' \
     -H 'X-API-Key: '"$OS_APIKEY" \
     -d @- -o /dev/null "$OS_URL/api/v1/bom" <<CURL_DATA
+=======
+  BODY='{"scope":"opensource","repoUrl":"'$REPO_URL'","branch":"'$branch'","repoName":"'$app_name'"}'
+  MIXEWAY_GET_INFO_RESPONSE=$(curl --request POST --url $mixeway_url/v2/api/cicd/getscannerinfo --header 'apikey: '"$mixeway_api_key"'' --header 'content-type: application/json' -d $BODY -k -s)
+  MIXEWAY_PROJECT_ID=$(echo $MIXEWAY_GET_INFO_RESPONSE | jq '.codeProjectId')
+  echo "Request for a SAST"
+  RUN_SCAN_RESPONSE=$(curl -k -s --request GET --url $mixeway_url/v2/api/cicd/sast/performscan/codeproject/$MIXEWAY_PROJECT_ID --header 'apikey: '"$mixeway_api_key"'')
+  echo $RUN_SCAN_RESPONSE
+}
+send_bom() {
+  POSTDATA="{\"project\":\"$OS_ID\",\"bom\":\"$BOM\"}"
+  curl -X "PUT" "$OS_URL/api/v1/bom" \
+    -k \
+    --noproxy "*" \
+    -H 'Content-Type: application/json' \
+    -H 'X-API-Key: '$OS_APIKEY \
+    -d @- "$OS_URL/api/v1/bom" <<CURL_DATA
+>>>>>>> d8e65fe66a8e2d9c406a67388d113f23b24e5206
       $POSTDATA
 CURL_DATA
 }
@@ -135,6 +169,7 @@ verify_mixeway_data() {
 }
 send_info_about_opensource_scan() {
   REQUEST_BODY='{"scope":"opensource","codeProjectId":'$CODE_PROJECT_ID',"branch":"'branch'","commitId":"'COMMITID'"}'
+<<<<<<< HEAD
   curl -k -s --request POST --url $mixeway_url/v2/api/cicd/infoscanperformed --header 'apikey: '"$mixeway_api_key"'' --header 'Content-Type: application/json' --data "$REQUEST_BODY"
 }
 run_opensource() {
@@ -142,12 +177,21 @@ run_opensource() {
   INFO_REQUEST_BODY='{"repoName":"'${REPO_URL##*/}'","scope":"opensource","repoUrl":"'$REPO_URL'","branch":"'$branch'"}'
   echo "Info Body is: $INFO_REQUEST_BODY"
   OS_RESPONSE=$(curl -k -s --request POST --url $mixeway_url/v2/api/cicd/getscannerinfo --header 'apikey: '"$mixeway_api_key"'' --header 'Content-Type: application/json' --data "$INFO_REQUEST_BODY")
+=======
+  curl -k -s --request POST --url $mixeway_url/v2/api/cicd/infoscanperformed --header 'apikey: '"$mixeway_api_key"'' --data "$REQUEST_BODY"
+}
+run_opensource() {
+  echo "Getting OpenSource Vulnerability scanner integration info"
+  INFO_REQUEST_BODY='{"scope":"opensource","repoUrl":"'$REPO_URL'","branch":"'$branch'"}'
+  OS_RESPONSE=$(curl -k -s --request POST --url $mixeway_url/v2/api/cicd/getscannerinfo --header 'apikey: '"$mixeway_api_key"'' --data "$INFO_REQUEST_BODY")
+>>>>>>> d8e65fe66a8e2d9c406a67388d113f23b24e5206
   INTEGRATION=$(echo $OS_RESPONSE | jq -r '.openSourceScannerIntegration')
   if [ "$INTEGRATION" = "true" ]; then
     echo "OpenSource scanner is avaliable proceeding..."
     OS_URL=$(echo $OS_RESPONSE | jq -r '.openSourceScannerApiUrl')
     OS_ID=$(echo $OS_RESPONSE | jq -r '.openSourceScannerProjectId')
     OS_APIKEY=$(echo $OS_RESPONSE | jq -r '.openSourceScannerCredentials')
+<<<<<<< HEAD
     CODE_PROJECT_ID=$(echo $OS_RESPONSE | jq -r '.codeProjectId')
     SCANNER_TYPE=$(echo $OS_RESPONSE | jq -r '.scannerType')
     if [ "$SCANNER_TYPE" = "OWASP Dependency Track" ]; then
@@ -160,32 +204,58 @@ run_opensource() {
                                 send_info_about_opensource_scan
       elif [ "$TECH" = "javascript_npm" ]; then
                                 echo "Generating SBOM for NPM"
+=======
+    CODE_PROJECT_ID=$(echo $OS_RESPONSE | jq -r '.projectId')
+    TECH=$(echo $OS_RESPONSE | jq -r '.tech')
+    SCANNER_TYPE=$(echo $OS_RESPONSE | jq -r '.scannerType')
+    TECH=$(echo "$TECH" | awk '{print tolower($0)}')
+    if [ "$SCANNER_TYPE" = "OWASP Dependency Track" ]; then
+      if [ "$TECH" = "java_mvn" ]; then
+        mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom > /dev/null
+        BOM=$(base64 target/bom.xml |tr -d \\n)
+        send_bom
+      elif [ "$TECH" = "javascript_npm" ]; then
+>>>>>>> d8e65fe66a8e2d9c406a67388d113f23b24e5206
         npm install --save ignore-errors
         cyclonedx-bom -o bom.xml
         BOM=$(base64 bom.xml |tr -d \\n)
         send_bom
+<<<<<<< HEAD
                                 sleep 15
                                 send_info_about_opensource_scan
       elif [ "$TECH" = "php_composer" ]; then
                                 echo "Generating SBOM for composer"
+=======
+      elif [ "$TECH" = "php_composer" ]; then
+>>>>>>> d8e65fe66a8e2d9c406a67388d113f23b24e5206
         composer require --dev cyclonedx/cyclonedx-php-composer --ignore-platform-reqs
         composer make-bom
         BOM=$(base64 bom.xml |tr -d \\n)
         send_bom
+<<<<<<< HEAD
                                 sleep 15
                                 send_info_about_opensource_scan
       elif [ "$TECH" = "python_pip" ] ; then
                                 echo "Genereting SBOM for PIP"
+=======
+      elif [ "$TECH" = "python_pip" ] ; then
+>>>>>>> d8e65fe66a8e2d9c406a67388d113f23b24e5206
         pip freeze > requirements.txt
         cyclonedx-py -i requirements.txt -o bom.xml
         BOM=$(base64 bom.xml |tr -d \\n)
         send_bom
+<<<<<<< HEAD
                                 sleep 15
+=======
+>>>>>>> d8e65fe66a8e2d9c406a67388d113f23b24e5206
         send_info_about_opensource_scan
       else
           echo "Unknown project tech. Supported: java_mvn, javascript_npm, python_pip, php_composer"
       fi
+<<<<<<< HEAD
     echo "Completed OpenSource Scanning... Results are avaliable at Mixeway"
+=======
+>>>>>>> d8e65fe66a8e2d9c406a67388d113f23b24e5206
     fi
   else
     echo "OpenSource Vulnerability Scan was requested but there no integration between given project and OpenSource scanner"
@@ -195,7 +265,11 @@ verify() {
    TIMEOUT=0
   while true
   do
+<<<<<<< HEAD
     MIXEWAY_RESPONSE=$(curl --request GET --url $mixeway_url/v2/api/cicd/project/$mixeway_project_id/code/verify/$app_name/$app_name/$COMMITID --header 'apikey: '"$mixeway_api_key"'' -k -s)
+=======
+    MIXEWAY_RESPONSE=$(curl --request GET --url $mixeway_url/v2/api/cicd/project/$mixeway_project_id/code/verify/$group_name/$app_name/$COMMITID --header 'apikey: '"$mixeway_api_key"'' -k -s)
+>>>>>>> d8e65fe66a8e2d9c406a67388d113f23b24e5206
     SCAN_STATUS=$(echo $MIXEWAY_RESPONSE | jq -r '.running')
     SCAN_QUEUE=$(echo $MIXEWAY_RESPONSE | jq -r '.inQueue')
     MIXEWAY_RESULT=$(echo $MIXEWAY_RESPONSE | jq -r '.result')
@@ -219,14 +293,20 @@ verify() {
 }
 if [ ! -z "$branch" ] && [ ! -z "$TECH" ] && [ -d .git ]; then
   verify_mixeway_data
+<<<<<<< HEAD
   get_commit_id
   get_repo_url
+=======
+  get_repo_url
+  get_commit_id
+>>>>>>> d8e65fe66a8e2d9c406a67388d113f23b24e5206
   if [ $skip_sast = "false" ]; then
     run_sast
   fi
   if [ $skip_os = "false" ]; then
     run_opensource
   fi
+<<<<<<< HEAD
   echo "Starting to verify of $app_name ..."
 
   TIMEOUT=0
@@ -253,6 +333,9 @@ if [ ! -z "$branch" ] && [ ! -z "$TECH" ] && [ -d .git ]; then
     fi
     sleep 30
   done
+=======
+  #echo "Starting to verify of $app_name ..."
+>>>>>>> d8e65fe66a8e2d9c406a67388d113f23b24e5206
 else
   printf "Not sufficient data or directory is not GIT repository check possible options: \n\n"
   print_help
