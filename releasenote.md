@@ -1,3 +1,10 @@
+## 1.4.1 (2021-03-10)
+#### New Features
+* Possibility to configure global git credentials (url + username:password) for SAST plugins
+
+#### Bug Fixes
+* Fixed window with editing of source code repository values
+
 ## 1.4.0 (2021-01-18)
 #### New Features
 * Adding REST Endpoint which return result of Security Quaility Gateway for particular Code Repository
