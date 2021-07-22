@@ -21,6 +21,8 @@ services:
       - 8443:8443
     volumes:
       - ./pki/:/etc/pki
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     depends_on:
       - MixerDB
   MixerFrontend:
