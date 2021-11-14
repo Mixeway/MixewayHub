@@ -1,0 +1,17 @@
+version: '3.0'
+services:
+  MixerDB:
+    container_name: MixerDB
+    image: postgres:latest
+    command: postgres -c 'max_connections=200'
+    environment:
+      - POSTGRES_DB=mixer
+      - POSTGRES_USER=mixeruser
+      - POSTGRES_PASSWORD=mixerpassword
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data:rw
+volumes:
+  pgdata:
+
