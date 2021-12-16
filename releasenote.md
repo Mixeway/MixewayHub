@@ -1,3 +1,11 @@
+## 1.5.0 (2021-12-16)
+#### New Features
+* New main dashboard
+* New project dashboard
+
+#### Bug Fixes
+* Adjusted and fixed problems with Checkmarx scans
+
 ## 1.4.1 (2021-03-10)
 #### New Features
 * Possibility to configure global git credentials (url + username:password) for SAST plugins
