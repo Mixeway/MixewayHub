@@ -1,3 +1,13 @@
+## 1.6.0 (2022-04-25)
+#### New Features
+* New widget on show-project page
+* Removed CodeGroup concept in favor of CodeProject only
+* Integration tests of MixewayBackend
+
+#### Bug Fixes
+* Security updates in Backend & Frontend
+* Fixed problem related with errors when Vault integration is disabled
+
 ## 1.5.0 (2021-12-16)
 #### New Features
 * New main dashboard
