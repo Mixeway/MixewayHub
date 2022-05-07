@@ -1,3 +1,10 @@
+## 1.6.1 (2022-05-07)
+
+#### Bug Fixes
+* Fixed bug that allow to perform multiple sast scans of same project. Fixed status management, now when specific codeproject has inqueue or running state equal to true, it cannot be put on queue (https://github.com/Mixeway/MixewayBackend/issues/82)
+* Fixed bug related with improper view of the status in codeproject opensource scanner integration (https://github.com/Mixeway/MixewayFrontend/issues/57)
+
+
 ## 1.6.0 (2022-04-25)
 #### New Features
 * New widget on show-project page
