@@ -14,6 +14,7 @@ generate_files() {
   openssl pkcs12 -export -inkey pki/private.key -in pki/cert.crt -out pki/certificate.p12 -name "$CN" -password pass:$P12PASS
   cat pki/cert.crt >> pki/ca.pem
   echo "Generating environments.."
+  echo "FRONTEND_URL=https://localhost" >> environments
   echo "KEYALIAS=$CN" >> environments
   echo "TRUSTPASS=$TRUSTPASS" >> environments
   echo "P12PASS=$P12PASS" >> environments
@@ -52,6 +53,7 @@ then
     generate_files
 else
     generate_files
+    echo "VAULT_ENABLED=false" >> environments
 fi
 
 
