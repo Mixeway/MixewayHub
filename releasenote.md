@@ -1,3 +1,14 @@
+## 1.6.3 (2022-08-16)
+
+#### New Features
+* Adjusted docs
+* Fixed release
+* Fixed startup script
+
+#### Bug Fixes
+* Updated libraries due to security reasons
+* Fixed problem with checkmarx plugin
+
 ## 1.6.1 (2022-05-07)
 
 #### Bug Fixes

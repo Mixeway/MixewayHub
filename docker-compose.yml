@@ -25,8 +25,8 @@ services:
       - "host.docker.internal:host-gateway"
     depends_on:
       - MixerDB
-  MixerFrontend:
-    container_name: MixerFrontend
+  MixewayFrontend:
+    container_name: MixewayFrontend
     image: mixeway/frontend:latest
     volumes:
       - ./pki/:/etc/pki
@@ -34,15 +34,5 @@ services:
       - 443:443
     depends_on:
       - MixerBackend
-  MixewayVulnAuditor:
-    container_name: MixewayVulnAuditor
-    image: mixeway/vulnauditor:latest
-    env_file:
-      - environments
-    volumes:
-      - ./pki/:/pki/
-    ports:
-      - 8445:8445
 volumes:
   pgdata:
-
