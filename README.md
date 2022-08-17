@@ -4,7 +4,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Mixeway_MixewayBackend&metric=alert_status)](https://sonarcloud.io/dashboard?id=Mixeway_MixewayBackend)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Mixeway_MixewayBackend&metric=security_rating)](https://sonarcloud.io/dashboard?id=Mixeway_MixewayBackend)
 
-![MixewayLogo](.github/img/mixewaybadge.png)
+![MixewayLogo](../master/.github/img/mixewaybadge.png)
 
 # Mixeway Hub ![mixeway_logo](.github/img/logo_dashboard.png)
 
