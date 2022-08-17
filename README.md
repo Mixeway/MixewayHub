@@ -1,4 +1,4 @@
-<a href="https://github.com/Mixeway/MixewayHub/blob/master/releasenote.md"><img src="https://img.shields.io/badge/version-1.6.1-blue" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
+<a href="https://github.com/Mixeway/MixewayHub/blob/master/releasenote.md"><img src="https://img.shields.io/badge/version-1.6.3-blue" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
 <a href="hub.docker.comd"><img src="https://img.shields.io/docker/pulls/mixeway/backend?logo=Mixeway&style=plastic" alt="https://img.shields.io/badge/-changelog-blue.svg" data-canonical-src="https://img.shields.io/badge/-changelog-blue.svg" style="max-width:100%;"></a>
 ![](https://github.com/Mixeway/MixewayBackend/workflows/Deploy%20prod%20version/badge.svg?branch=master)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Mixeway_MixewayBackend&metric=alert_status)](https://sonarcloud.io/dashboard?id=Mixeway_MixewayBackend)
@@ -6,7 +6,7 @@
 
 ![MixewayLogo](.github/img/mixewaybadge.png)
 
-# Mixeway Hub <img src=".github/img/logo_dashboard.png" width="60px">
+# Mixeway Hub 
 
 ### About Mixeway:
 Mixeway is an OpenSource software that is meant to simplify the process of security assurance of projects which are implemented using CICD procedures. **Mixawey is not another vulnerability scanning
@@ -14,20 +14,11 @@ software - it is security orchestration tool**.
 
 <a href="https://mixeway.github.io">Detailed documentation can be found here</a>
 
+<a href="https://mixeway.io">More information and contact forms can be found here</a>
 
-<img src="https://mixeway.github.io/img/createproject.gif">
+![](.github/img/lead_image-transparent.png)
 
-
-With number of plugins for Vulnerability Scanners :
-<img src="https://mixeway.github.io/img/nessus.png" height="50px">
-<img src="https://mixeway.github.io/img/openvas.jpg" height="50px">
-<img src="https://mixeway.github.io/img/acunetix.jpg" height="50px">
-<img src="https://mixeway.github.io/img/fortify.jpg" height="50px">
-<img src="https://mixeway.github.io/img/deptrack.png" height="50px">
-<img src="https://mixeway.github.io/img/cis.png" height="50px">
-<img src="https://mixeway.github.io/img/jenkins.jpg" height="50px">
-<img src="https://mixeway.github.io/img/jira.jpg" height="50px">
-<img src="https://www.checkmarx.com/wp-content/uploads/2019/10/Checkmarx-logo-2019-horizontal-4.png" height="50px">
+Mixeway is a middleware between CICD and Vulnerability Scanners. From user perspective it doesn’t matter which SAST, DAST, SCA or Network Scanner You are using – all integration is done by Mixeway in the background what makes the whole proces completely unified for the user/process.
 
 With all this available, Mixeway provides functionalities to:
 - Automatic service discovery (IaaS Plugin for assets and network scans for services)
@@ -40,102 +31,64 @@ With all this available, Mixeway provides functionalities to:
 Elements of a system:
 - <a href="https://github.com/Mixeway/MixewayBackend">Backend - Spring Boot REST API</a>
 - <a href="https://github.com/Mixeway/MixewayFrontend">Frontend - Angular 8 application </a>
-- <a href="https://hub.docker.com/_/postgres">DB - postgres database</a>
-- <a href="https://www.vaultproject.io/">Vault - password store</a>
 - <a href="https://github.com/Mixeway/MixewayHub">MixewayHub - parent project which contain docker-compose and one click instalation </a>
 
-###### Main Contributor
-- <a href="https://cert.orange.pl">CERT Orange Poland</a> 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/599px-Orange_logo.svg.png" height="100px">
+### Vulnerability and Scan Management
 
-###### Requirements:
-- Docker-compose
+![](.github/img/vuln_scan_mgmt.png)
 
-###### Hashicorp Vault integration:
-Mixeway has to be able to reuse given passwords and api keys in order to use them with Vulnerability Scanning interactions.
+With Mixeway You can:
+* CONFIGURE AND RUN ANY SCAN - It doesn’t matter which vulnerability scanners You are using. With Mixeway integration running scans from GUI/API/CICD pipeline looks exactly the same no matter of scanning software.
+* VULNERABILITY MANAGEMENT - Although Vulnerability Management is not main focus of Mixeway, we still serve some of the functionalities where You can browse through findings, see dashboard statistics or create JIRA tickets just by clicking on an issue.
+* THREAT PRIORITIZATION - With Mixeway Vuln Auditor each detected threat is analyzed by Neural network and categorized as one of two: Relevant threat or not important/false positive. Thanks to that CyberSec Teams can focus only on serious threats
 
-**Vault integration is optional but it is strongly recommended to be included - otherwise password for vulnerability scanners will
-be stored in plaintext.**
+### Running Mixeway
 
+Requirements:
+* Installed unzip
+* Docker and Docker-compose
 
-###### Running Mixeway:
-There are 2 requirements for Mixeway to be successfully deployed using prepared docker-compose.
-- minimal environments file to be properly configured:
-```
-TRUSTPASS=changeit
-KEYALIAS=localhost
-P12PASS=changeit
-PROFILE=prod
-```
-- Recomended (with vault integration) environments file to be properly configured:
-```
-VAULT_HOST=127.0.0.1
-VAULT_PORT=8200
-VAULT_SCHEME=http
-VAULT_APP_NAME=mixeway
-VAULT_TOKEN=ffffffff-ffff-ffff-ffff-fffffffffff
-KEYALIAS=localhost
-TRUSTPASS=changeit
-P12PASS=changeit
-PROFILE=prod
-```
-Where TRUSTPASS is password for CACERT file (java keystore containing trusted root certificates), KEYALIAS alias for key stored within PKCS12 file and P12PASS - password for PKCS12 file containing both certificate and private key.
-- Certificates are in the proper place. There should be `pki` directory in the folder where docker-compose.yml is located. It is important that the `pki` directory will contain files:
-  - `ca.pem` which contains trusted root certificates (in pem format for nginx)
-  - `cert.crt` which contains public key in pem format
-  - `private.key` which contains private key in pem format
-  - `certificate.p12` PKCS12 file of cert.crt and private.key
-  - `trust.jks` which could be cacerts of JVM 
-  
-There is `setup` script prepared for `Unix` machines which generate certificates and prepare `environments`
-
-Usage:
-```
-git clone https://github.com/Mixeway/MixewayHub
-/bin/sh startup.sh
-docker-compose pull
+```bash
+# Create project directory
+mkdir mixeway && cd "$_"
+# Download latest release
+wget https://github.com/Mixeway/MixewayHub/releases/download/v1.6.3/MixewayHub.zip
+# Unzip contents
+unzip MixewayHub.zip
+# Run startup script
+./startup.sh
+# Run application
 docker-compose up
 ```
 
-You can either use `setup` script or prepare environment on Your own using the guide above.
-
-Mixeway will be available at https://__Your_IP_goes_here
-
-### CI integrations
-Mixeway has prepared automated script which is easy to implement in any CICD pipeline which can run bash scripts.
-Requirements:
-1. installed jq, curl
-2. For using OpenSource (At this moment only DependencyTrack available ) scan possibility to run CycloneDX plugin which is dependant on project language - more details here
-https://cyclonedx.org
-
-#### Setup
-```
-cd {project}
-curl https://raw.githubusercontent.com/Mixeway/MixewayHub/master/scripts/CIScripts/mixeway-ci > mixeway-ci
-chmod +x mixeway-ci
+`startup.sh` script is preparing `environment` variable and create self-signed certificates. As a result file with content is created:
+```shell
+FRONTEND_URL=https://localhost
+KEYALIAS=localhost
+TRUSTPASS=changeit
+P12PASS=changeit
+PROFILE=prod
+CERTIFICATE=/pki/cert.crt
+PRIVATEKEY=/pki/private.key
+VAULT_ENABLED=false
 ```
 
-#### Usage
-```
-mixeway-ci --appname=projectName \
-    --groupname=groupName \
-    --mixewayurl=http://mixeway.io \
-    --mixewayapikey=123 \
-    --mixewayprojectid=1 \
-    --skipsast \
-    --skipopensource
+<a href="https://mixeway.github.io/installation/">Description and other options are described in details in the linked documentation</a>
 
-Required:
-    --appname - Subject application name
-    --groupname - Fortify SCA build name
-    --mixewayurl - URL for Mixeway API
-    --mixewayapikey - API key generated on Mixeway to authenticate call
-    --mixewayprojectid - ID of project on Mixeway
-Optional:
-    --skipsast - setup when You dont want run SAST test
-    --skipopensource - setup when You dont want run OpenSource test
-```
+Mixeway will be avaliable at `https://<your_ip>`.
 
-Please note that enabling both `--skipsast` and `--skipopensource` will only verify state of security.
+### Supported integrations
 
-Timeout for script is 5min. If timeout is exceeded script return success.
+| Software | Type | Versions | Notes |
+|----------|------|----------|-------|
+| Acunetix | DAST Scanner | 10.0 + | Full scope | 
+| Burp Enterprise Edition | DAST Scanner | 2021.10 + | Full scope |
+| Fortify | SAST Scanner | 16,17,21 | Downnloading results, creating scan require additional software |
+| Checkmarx | SAST Scanner | 9 + | Full Scope |
+| Dependency Track | SCA Scanner | 3+ | Full Scope|
+| Nexus IQ | SCA Scanner | 140+ | Full Scope - integration under development |
+| Nessus | Network Scanner | 6 | Full Scope |
+| GVM aka OpenVAS | Network Scanner | 18+ | Full Scope, require additional software|
+| AWS | Cloud | na | Security groups, resources info download |
+| OpenStack | Cloud | na | Security groups, resources info download |
+| GCP | Cloud | na | Security groups, resources info download, integration under development |
