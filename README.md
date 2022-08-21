@@ -56,7 +56,7 @@ wget https://github.com/Mixeway/MixewayHub/releases/download/v1.6.3/MixewayHub.z
 # Unzip contents
 unzip MixewayHub.zip
 # Run startup script
-./startup.sh
+./setup.sh
 # Run application
 docker-compose up
 ```
@@ -92,7 +92,3 @@ Mixeway will be avaliable at `https://<your_ip>`.
 | AWS | Cloud | na | Security groups, resources info download |
 | OpenStack | Cloud | na | Security groups, resources info download |
 | GCP | Cloud | na | Security groups, resources info download, integration under development |
-
-
-### Mixeway Preview
-![](.github/img/preview.gif)
