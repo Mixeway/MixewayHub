@@ -1,3 +1,12 @@
+
+## 1.7.0 (2023-01-23)
+
+#### Bug Fixes
+* Fixed bug with caused sometimes failure in creating synchronization with SCA
+
+#### New Features
+* Nexus-IQ Integration
+
 ## 1.6.3 (2022-08-16)
 
 #### New Features
