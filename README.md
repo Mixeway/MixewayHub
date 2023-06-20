@@ -79,16 +79,18 @@ Mixeway will be avaliable at `https://<your_ip>`.
 
 ### Supported integrations
 
-| Software | Type | Versions | Notes |
-|----------|------|----------|-------|
-| Acunetix | DAST Scanner | 10.0 + | Full scope | 
-| Burp Enterprise Edition | DAST Scanner | 2021.10 + | Full scope |
-| Fortify | SAST Scanner | 16,17,21 | Downnloading results, creating scan require additional software |
-| Checkmarx | SAST Scanner | 9 + | Full Scope |
-| Dependency Track | SCA Scanner | 3+ | Full Scope|
-| Nexus IQ | SCA Scanner | 140+ | Full Scope - integration under development |
-| Nessus | Network Scanner | 6 | Full Scope |
-| GVM aka OpenVAS | Network Scanner | 18+ | Full Scope, require additional software|
-| AWS | Cloud | na | Security groups, resources info download |
-| OpenStack | Cloud | na | Security groups, resources info download |
-| GCP | Cloud | na | Security groups, resources info download, integration under development |
+| Software                | Type            | Versions  | Notes                                                                   |
+|-------------------------|-----------------|-----------|-------------------------------------------------------------------------|
+| Acunetix                | DAST Scanner    | 10.0 +    | Full scope                                                              | 
+| Burp Enterprise Edition | DAST Scanner    | 2021.10 + | Full scope                                                              |
+| Fortify                 | SAST Scanner    | 16,17,21  | Downnloading results, creating scan require additional software         |
+| Checkmarx               | SAST Scanner    | 9 +       | Full Scope                                                              |
+| Dependency Track        | SCA Scanner     | 3+        | Full Scope                                                              |
+| Nexus IQ                | SCA Scanner     | 140+      | Full Scope - integration under development                              |
+| Nessus                  | Network Scanner | 6         | Full Scope                                                              |
+| GVM aka OpenVAS         | Network Scanner | 18+       | Full Scope, require additional software                                 |
+| AWS                     | Cloud           | na        | Security groups, resources info download                                |
+| OpenStack               | Cloud           | na        | Security groups, resources info download                                |
+| GCP                     | Cloud           | na        | Security groups, resources info download, integration under development |
+| OWASP ZAP               | DAST Scanner    | na        | Load results from performed scan                                        |
+| KICS                    | SAST Scanner    | na        | Load results from performed scan                                        |
