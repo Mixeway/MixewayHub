@@ -1,3 +1,30 @@
+## 1.8.0 (2023-09-05)
+
+#### New Features
+* Refreshed show project page with additional statistic
+* Project vulnerability timeline
+* Vulnerability timeline
+* More other stats like average time to fix vulnerability
+* Enabled hibernate envers for projectvulnerability table
+* added endpoint with more detailed statistics for both project and vulnerabilities discovered within project
+
+
+#### Updates
+* Updated to angular 14 and ngx-admin 10 (Frontend)
+
+#### Bug Fixes
+* Fixed problem with not refreshed gauge chart with project threat rating
+* Fixed bug when some vulnerabilities status was not managed properly
+* Fixed bug with Checkmarx integration
+
+#### New Features
+* Enabled hibernate envers for projectvulnerability table
+* added endpoint with more detailed statistics for both project and vulnerabilities discovered within project
+
+#### Bug Fixes
+* Fixed bug when some vulnerabilities status was not managed properly
+* Fixed bug with Checkmarx integration
+
 
 ## 1.7.0 (2023-01-23)
 
