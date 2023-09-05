@@ -30,3 +30,4 @@ environments
 /nbdist/
 /bin/
 /.nb-gradle/
+/MixewayFrontend/.angular/
