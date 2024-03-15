@@ -1,3 +1,12 @@
+## 1.8.1 (2024-03-15)
+
+#### New Features
+* OWASP ZAP integration (uploading findings)
+
+#### Bug Fixes
+* Fixed some visual deficits on show project page
+* Fixed properly setting the status in adding Dependency-Track scanner
+
 ## 1.8.0 (2023-09-05)
 
 #### New Features

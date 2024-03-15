@@ -11,7 +11,7 @@ generate_files() {
   echo "Generating Key pair.."
   openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout pki/private.key -out pki/cert.crt -subj "/CN=$CN" &> /dev/null
   echo "Generating PKCS12.."
-  openssl pkcs12 -export -inkey pki/private.key -in pki/cert.crt -out pki/certificate.p12 -name "$CN" -password pass:$P12PASS
+  openssl pkcs12 -export -inkey pki/private.key -in pki/cert.crt -out pki/certificate.p12 -name "$CN" -password pass:$P12PASS -legacy
   cat pki/cert.crt >> pki/ca.pem
   echo "Generating environments.."
   echo "FRONTEND_URL=https://localhost" >> environments
